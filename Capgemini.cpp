@@ -382,8 +382,8 @@ void menu(int Id)
         std::cout << "Welcome to the cell phone shop warehouse\n";
         std::cout << "Please insert wanted option:\n";
         std::cout << "[1]-for adding phone to warehouse\n";
-        std::cout << "[2]-for adding phone to warehouse\n";
-        std::cout << "[3]-for adding phone to warehouse\n";
+        std::cout << "[2]-for deleting phone from warehouse\n";
+        std::cout << "[3]-for show reports options\n";
         std::cout << "[0]-for exit the program\n";
         std::cout << "\n";
     }
