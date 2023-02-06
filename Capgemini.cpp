@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <string>
 #include <windows.h>
+#include <fstream>
+#include <vector>
 #include "Capgemini.h"
 
 // Main function - Getting data from user/passing it to functions
@@ -137,6 +139,73 @@ void menu(int Id)
 
         std::cout << "[0]-for exit reports\n";
         std::cout << "\n";
+    }
+}
+
+std::vector<std::string> split_string(const std::string& str,const std::string& delimiter)
+{
+    std::vector<std::string> strings;
+
+    std::string::size_type pos = 0;
+    std::string::size_type prev = 0;
+    while ((pos = str.find(delimiter, prev)) != std::string::npos)
+    {
+        strings.push_back(str.substr(prev, pos - prev));
+        prev = pos + delimiter.size();
+    }
+
+    // To get the last substring (or only, if delimiter is not found)
+    strings.push_back(str.substr(prev));
+
+    return strings;
+}
+
+StoredPhones::StoredPhones()
+{
+    std::cout << "Pass location and file name to read/save data (0 to continue): ";
+    std::cin >> Location;
+    if (Location != "0")
+    {
+        std::ifstream File(Location);
+        if (!File)
+        {
+            std::cout<<"File not exist, continuing without upload data";
+        }
+        else
+        {
+            std::string words[6];
+            int i = 0;
+            Phone NewPhone;
+            while (File >> words[i++])
+            {
+                if (i == 6)
+                {   
+                    NewPhone.Brand=words[0];
+                    NewPhone.Model = words[1];
+                    NewPhone.FormFactor = words[2];
+                    NewPhone.YearOfIssue = stoi(words[3]);
+                    NewPhone.ScreenSize = stod(words[4]);
+                    NewPhone.Price = stod(words[5]);
+                    Add(NewPhone);
+                    i=0;
+                }
+
+            }
+        }
+        system("pause");
+    }
+}
+
+StoredPhones::~StoredPhones()
+{
+    if(Location != "0")
+    {
+        std::fstream File;
+        File.open(Location, std::ios::out);
+        for (int i = 0; i < Size; i++)
+        {
+            File<<Phones[i].Brand<<" " << Phones[i].Model << " " << Phones[i].FormFactor << " " << Phones[i].YearOfIssue << " " << Phones[i].ScreenSize << " " << Phones[i].Price << std::endl;
+        }
     }
 }
 
