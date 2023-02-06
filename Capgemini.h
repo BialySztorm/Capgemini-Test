@@ -1,7 +1,7 @@
 #pragma once
 
 void menu(int Id);
-std::vector<std::string> split_string(const std::string& str, const std::string& delimiter);
+
 
 struct Phone {
     std::string Brand;
